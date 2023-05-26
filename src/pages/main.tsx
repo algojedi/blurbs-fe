@@ -1,13 +1,11 @@
 import React from 'react';
-import PostsContainer from '../components/posts/posts-container';
-import UsersContainer from '../components/users/users-container';
+import Posts from '../components/posts/posts';
 
 const MainComponent: React.FC = () => {
 	return (
 		<div>
 			<h1>Main Component</h1>
-			<PostsContainer />
-			<UsersContainer />
+			<Posts />
 		</div>
 	);
 };
