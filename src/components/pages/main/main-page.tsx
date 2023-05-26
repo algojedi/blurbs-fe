@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Posts from '../components/posts/posts';
-import { ThemeContext } from '../context/theme-provider';
+import Posts from '../../posts/posts';
+import { ThemeContext } from '../../../context/theme-provider';
 
 const MainComponent: React.FC = () => {
   const { isDark, toggleTheme, theme } = useContext(ThemeContext);
