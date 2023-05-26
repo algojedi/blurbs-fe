@@ -28,4 +28,5 @@ export type Themes = {
 export type ThemeContextProps = {
   isDark: boolean;
   toggleTheme: () => void;
+  theme: Theme;
 }

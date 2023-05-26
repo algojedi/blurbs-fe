@@ -18,7 +18,7 @@ interface ThemeProviderProps {
 }
 
 export const ThemeContext = createContext<ThemeContextProps>({
-  // theme: themes.light,
+  theme: themes.light,
   toggleTheme: () =>  { return },
   isDark: false,
 });
@@ -37,7 +37,7 @@ const ThemeProvider : React.FC<ThemeProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme}}>
+    <ThemeContext.Provider value={{ isDark, theme, toggleTheme}}>
       {children}
     </ThemeContext.Provider>
   );

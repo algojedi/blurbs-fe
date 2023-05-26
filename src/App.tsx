@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import AuthProvider from './context/auth-provider';
 import MainComponent from './pages/main';

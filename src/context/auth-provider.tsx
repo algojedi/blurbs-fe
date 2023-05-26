@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { AppUser } from './types';
+import { AppUser } from '../types/types';
 
 interface AuthContextProps {
 	user: AppUser | null;
