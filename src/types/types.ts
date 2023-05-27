@@ -30,3 +30,5 @@ export type ThemeContextProps = {
   toggleTheme: () => void;
   theme: Theme;
 }
+
+export const IS_DARK = 'isDark';

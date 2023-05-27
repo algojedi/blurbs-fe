@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { ThemeContextProps } from '../types/types';
+import { IS_DARK, ThemeContextProps } from '../types/types';
 import { themes } from '../themes/themes';
 
 
@@ -16,13 +16,13 @@ export const ThemeContext = createContext<ThemeContextProps>({
 const ThemeProvider : React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
   const toggleTheme = () => {
-    localStorage.setItem("isDark", JSON.stringify(!isDark));
+    localStorage.setItem(IS_DARK, JSON.stringify(!isDark));
     setIsDark(!isDark);
   };
   const theme = isDark ? themes.dark : themes.light;
 
   useEffect(() => {
-    const isDark = localStorage.getItem("isDark") === "true";
+    const isDark = localStorage.getItem(IS_DARK) === "true";
     setIsDark(isDark);
   }, []);
 
