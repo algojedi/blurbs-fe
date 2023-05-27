@@ -12,9 +12,6 @@ const MainComponent: React.FC = () => {
       style={{ backgroundColor: theme.backgroundColor, color: theme.color }}
     >
       <NavigationBar />
-      <h1 className='h2 text-center'>All Posts</h1>
-      <div className='text'>It's a {isDark ? 'Dark' : 'Light'} theme</div>
-      <Posts />
     </div>
   );
 };
