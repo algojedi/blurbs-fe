@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Posts from '../../posts/posts';
 import { ThemeContext } from '../../../context/theme-provider';
-import { NavigationBar } from '../../organism/navbar';
+import { NavigationBar } from '../../organism/navbar/navbar';
 
 // TODO: this should be a layout component
 const MainComponent: React.FC = () => {

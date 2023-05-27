@@ -1,17 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { Theme, ThemeContextProps, Themes } from '../types/types';
+import { ThemeContextProps } from '../types/types';
+import { themes } from '../themes/themes';
 
-
-const themes : Themes = {
-  dark: {
-    backgroundColor: 'black',
-    color: 'white',
-  },
-  light: {
-    backgroundColor: 'white',
-    color: 'black',
-  },
-};
 
 interface ThemeProviderProps {
   children: React.ReactNode;
