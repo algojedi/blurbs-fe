@@ -1,17 +1,9 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
-import { API_URL } from '../../../api';
+import { fetchPosts } from '../../../api/api';
 import { Post } from '../../../types/types';
 import { ThemeContext } from '../../../context/theme-provider';
 import { Link } from 'react-router-dom';
-
-const fetchPosts = async () => {
-  const response = await fetch(`${API_URL}/posts`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch posts');
-  }
-  return response.json();
-};
 
 export type PostsProps = { classNames?: string };
 
@@ -40,7 +32,7 @@ const Posts: React.FC<PostsProps> = ({ classNames }) => {
       {data ? (
         data.map((post) => (
           <Link
-						to={`/posts/${post.id}`}
+            to={`/posts/${post.id}`}
             key={post.id}
             className={cardClassNames}
           >
