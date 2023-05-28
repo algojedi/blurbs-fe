@@ -1,10 +1,10 @@
 import './App.css';
 import AuthProvider from './context/auth-provider';
-import MainComponent from './components/pages/main/main-page';
 import ThemeProvider from './context/theme-provider';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Outlet } from 'react-router-dom';
+import MainPage from './components/pages/main/main-page';
 
 function App() {
   const queryClient = new QueryClient({});
@@ -12,7 +12,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ThemeProvider>
-          <MainComponent />
+          <MainPage />
           <Outlet />
         </ThemeProvider>
       </AuthProvider>

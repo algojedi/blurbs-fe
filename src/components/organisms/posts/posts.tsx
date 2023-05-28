@@ -3,7 +3,8 @@ import { useQuery } from 'react-query';
 import { fetchPosts } from '../../../api/api';
 import { Post } from '../../../types/types';
 import { ThemeContext } from '../../../context/theme-provider';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import './posts.scss';
 
 export type PostsProps = { classNames?: string };
 
@@ -24,23 +25,23 @@ const Posts: React.FC<PostsProps> = ({ classNames }) => {
   }
 
   const cardClassNames =
-    'card mb-3 link-unstyled ' + theme === 'dark' ? 'bg-dark text-white' : '';
+    'card card-link mb-3 link-unstyled ' + theme === 'dark' ? 'bg-dark text-white' : '';
 
+            // className={cardClassNames}
   return (
     <div className={classNames}>
       <h3 className='title'>Posts</h3>
       {data ? (
         data.map((post) => (
-          <Link
+          <NavLink
             to={`/posts/${post.id}`}
             key={post.id}
-            className={cardClassNames}
           >
-            <div className='card-body link-unstyled'>
+            <div className='card-body link-unstyled card-link'>
               <h3 className='card-title'>{post.title}</h3>
               <p className='card-text'>{post.content}</p>
             </div>
-          </Link>
+          </NavLink>
         ))
       ) : (
         <div>No posts</div>
