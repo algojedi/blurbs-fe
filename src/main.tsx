@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './components/pages/error/error-page.tsx';
 import PostDetailPage from './components/pages/post/post-detail-page.tsx';
 import PostsListPage from './components/pages/post/posts-list-page.tsx';
+import AboutPage from './components/pages/about/about-page.tsx';
+import ProfilePage from './components/pages/profile/profile-page.tsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: 'posts/:postId',
         element: <PostDetailPage />,
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />,
+      },
+      {
+        path: '/about',
+        element: <AboutPage />,
       },
     ],
   },

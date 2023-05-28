@@ -4,7 +4,7 @@ import { ThemeContext } from '../../../context/theme-provider';
 import { NavigationBar } from '../../organisms/navbar/navbar';
 
 // TODO: this should be a layout component
-const MainComponent: React.FC = () => {
+const MainPage: React.FC = () => {
   const { isDark, toggleTheme, theme } = useContext(ThemeContext);
   return (
     <div
@@ -16,7 +16,7 @@ const MainComponent: React.FC = () => {
   );
 };
 
-export default MainComponent;
+export default MainPage;
 
       // <button type='button' onClick={toggleTheme}>
       //   Toggle theme

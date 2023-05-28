@@ -7,9 +7,9 @@ export const NavigationBar = () => {
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
 			<div className='container'>
-				<a className='navbar-brand' href='#'>
+				<Link className='navbar-brand' to='/'>
 					BLURBS
-				</a>
+				</Link>
 				<button
 					className='navbar-toggler'
 					type='button'
@@ -24,8 +24,8 @@ export const NavigationBar = () => {
 				<div className='collapse navbar-collapse' id='navbarNav'>
 					<ul className='navbar-nav'>
 						<li className='nav-item'>
-							<Link className='nav-link' to='/'>
-								My Posts
+							<Link className='nav-link' to='/posts'>
+								Posts
 							</Link>
 						</li>
 						<li className='nav-item'>
