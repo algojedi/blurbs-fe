@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Posts from '../../organisms/posts/posts';
 import { ThemeContext } from '../../../context/theme-provider';
 import { NavigationBar } from '../../organisms/navbar/navbar';
 

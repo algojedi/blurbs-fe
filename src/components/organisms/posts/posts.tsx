@@ -24,6 +24,7 @@ const Posts: React.FC<PostsProps> = ({ classNames }) => {
     return <div>Error: {error?.message}</div>;
   }
 
+	// TODO: apply these somewhere
   const cardClassNames =
     'card card-link mb-3 link-unstyled ' + theme === 'dark' ? 'bg-dark text-white' : '';
 
