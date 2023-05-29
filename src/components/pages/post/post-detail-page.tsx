@@ -8,6 +8,8 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
+
+	// TODO: react router loader may be better option
   if (!postId) throw new Error('Post id is not defined');
 	const navigate = useNavigate()
 
@@ -21,8 +23,6 @@ const PostDetailPage = () => {
   const deletePostMutation = useMutation((id: number) => {
     return deletePost(id);
   });
-
-  console.log({ post });
 
   useEffect(() => {
     if (isErrorPost) {
@@ -67,6 +67,7 @@ const PostDetailPage = () => {
           <p className='card-text'>{post?.content}</p>
           <p className='card-text'>Author: {post?.appUser.name}</p>
           <p className='card-text'>Creation Date: {post?.creationDate}</p>
+          <p className='card-text'>Avg Rating: {post?.averageRating ?? 'unrated'}</p>
           <div className='d-flex justify-content-end'>
             <FontAwesomeIcon
               className='mx-2'
