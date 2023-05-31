@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 import { Post } from '../../../types/types';
 import { deletePost, fetchPost } from '../../../api/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import TextEditor from '../../organisms/editor/editor';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -12,6 +13,7 @@ const PostDetailPage = () => {
 	// TODO: react router loader may be better option
   if (!postId) throw new Error('Post id is not defined');
 	const navigate = useNavigate()
+  const [showEditor, setShowEditor] = useState(false);
 
   const {
     data: post,
@@ -49,6 +51,7 @@ const PostDetailPage = () => {
   }
 
   const handleEditPost = (id?: number) => {
+    setShowEditor(true);
     console.log('Edit post ' + id);
   };
 
@@ -58,6 +61,10 @@ const PostDetailPage = () => {
     const { isLoading, isSuccess, isError, error, data } = deletePostMutation;
     console.log({ isLoading, isSuccess, isError, error, data });
   };
+
+  if (showEditor) {
+    return <TextEditor />;
+  }
 
   return (
     <div className='container'>
