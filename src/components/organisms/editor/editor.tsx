@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import { Delta as TypeDelta, Sources, Delta } from 'quill';
 // import Delta from "quill-delta";
 import 'react-quill/dist/quill.snow.css';
+import './editor.scss'
 
 // const delta = (new Delta([
 // 	{ insert: "Gandalf", attributes: { bold: true } },
