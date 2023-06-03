@@ -34,14 +34,23 @@ export default function Editor() {
   ) => {
     setValue(editor.getContents());
   console.log({ value, delta, source, editor });
+  const foo = editor.getHTML();
+  console.log(foo);
   };
 
+  const myValue =`<p><strong style="color: rgb(120, 84, 18);">hay</strong> hey the <span style="color: red;">darkness has</span> come</p>`
+
+  // const eraseme = JSON.parse(myValue);
+
   return (
+    <>
     <ReactQuill
       theme='snow'
-      value={value}
+      value={myValue}
       onChange={onEditorChange}
       modules={modules}
     />
+    {/* <div>{eraseme}</div> */}
+    </>
   );
 }
