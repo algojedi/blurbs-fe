@@ -20,8 +20,7 @@ const modules = {
 			[{ align: ["right", "center", "justify"] }],
 			[{ list: "ordered" }, { list: "bullet" }],
 			["link", "image"],
-			[{ color: ["red", "#785412"] }],
-			[{ background: ["red", "#785412"] }]
+			[{ color: ["red", "#785412"] }]
   ],
 };
 
@@ -47,9 +46,10 @@ export default function Editor() {
     <>
     <ReactQuill
       theme='snow'
-      value={myValue}
+      value={value}
       onChange={onEditorChange}
       modules={modules}
+      className='container bg-secondary'
     />
     {/* <div>{eraseme}</div> */}
     </>
