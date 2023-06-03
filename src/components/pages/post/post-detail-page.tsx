@@ -5,6 +5,7 @@ import { Post } from '../../../types/types';
 import { deletePost, fetchPost } from '../../../api/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Editor from '../../organisms/editor/editor';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -59,6 +60,9 @@ const PostDetailPage = () => {
     console.log({ isLoading, isSuccess, isError, error, data });
   };
 
+  return <Editor />
+
+  /*
   return (
     <div className='container'>
       <div className='card'>
@@ -84,6 +88,7 @@ const PostDetailPage = () => {
       </div>
     </div>
   );
+  */
 };
 
 export default PostDetailPage;
