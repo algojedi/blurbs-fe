@@ -1,11 +1,20 @@
 export type Post = {
   id: number;
-  title: string;
-  content: string;
+  // title: string;
+  quillContent: string;
+  htmlContent: string;
   creationDate: string;
   averageRating?: number;
   appUser: AppUser;
+  hashtags?: Hashtag[];
 }
+
+export type Hashtag = {
+  id: number;
+  name: string;
+}
+
+
 
 export type AppUser = {
   id: number;
