@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import Posts from '../../organisms/posts/posts';
+import Posts from '../../organisms/post-list/post-list';
 import { ThemeContext } from '../../../context/theme-provider';
 import { useQuery } from 'react-query';
 import { fetchPosts } from '../../../api/api';

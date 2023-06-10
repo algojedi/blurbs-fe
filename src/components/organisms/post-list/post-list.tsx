@@ -3,13 +3,13 @@ import { Post } from '../../../types/types';
 import { ThemeContext } from '../../../context/theme-provider';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './posts.scss';
+import './post-list.scss';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import DOMPurify from 'dompurify';
+import PostListItem from '../../molecules/post-list-item';
 
-export type PostsProps = { classNames?: string; posts?: Post[] };
+export type PostListProps = { classNames?: string; posts?: Post[] };
 
-const Posts: React.FC<PostsProps> = ({ classNames, posts }) => {
+const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
   const { theme } = useContext(ThemeContext);
 
   // TODO: apply these somewhere
@@ -18,10 +18,6 @@ const Posts: React.FC<PostsProps> = ({ classNames, posts }) => {
       ? 'bg-dark text-white'
       : '';
 
-  const sanitizeHtml = (htmlContent: string) => {
-    const sanitizedHtml = DOMPurify.sanitize(htmlContent);
-    return sanitizedHtml;
-  };
 
   return (
     <div className={classNames}>
@@ -38,13 +34,7 @@ const Posts: React.FC<PostsProps> = ({ classNames, posts }) => {
       {posts ? (
         posts.map((post) => (
           <NavLink to={`/posts/${post.id}`} key={post.id}>
-            {/* <div className='card-body link-unstyled card-link'> */}
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: sanitizeHtml(post.htmlContent),
-                }}
-              />
-            {/* </div> */}
+            <PostListItem post={post} />
           </NavLink>
         ))
       ) : (
@@ -53,4 +43,4 @@ const Posts: React.FC<PostsProps> = ({ classNames, posts }) => {
     </div>
   );
 };
-export default Posts;
+export default PostList;

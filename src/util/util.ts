@@ -1,4 +1,5 @@
 import { ErrorResponse } from "@remix-run/router";
+import DOMPurify from "dompurify";
 import { isRouteErrorResponse } from "react-router-dom";
 
 export function extractErrorMessage(error: unknown): string {
@@ -14,3 +15,9 @@ export function extractErrorMessage(error: unknown): string {
       return 'Unknown error';
   }
 }
+
+
+  export const sanitizeHtml = (htmlContent: string) => {
+    const sanitizedHtml = DOMPurify.sanitize(htmlContent);
+    return sanitizedHtml;
+  };
