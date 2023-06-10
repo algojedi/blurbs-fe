@@ -1,11 +1,20 @@
 export type Post = {
   id: number;
-  title: string;
-  content: string;
+  // title: string;
+  quillContent: string;
+  htmlContent: string;
   creationDate: string;
   averageRating?: number;
   appUser: AppUser;
+  hashtags?: Hashtag[];
 }
+
+export type Hashtag = {
+  id: number;
+  name: string;
+}
+
+
 
 export type AppUser = {
   id: number;
@@ -16,8 +25,16 @@ export type AppUser = {
 // Theme Types
 
 export type Theme = {
-    backgroundColor: string;
-    color: string;
+    backgroundColor: {
+      primary: string;
+      secondary: string;
+    }
+    text : { 
+      color: {
+        primary: string;
+        secondary: string;
+      } 
+    }
 }
 
 export type Themes = {
