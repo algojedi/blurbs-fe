@@ -20,7 +20,7 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
 
 
   return (
-    <div className={classNames}>
+    <div className='p-3'>
       <div className='d-flex justify-content-between'>
         <h3 className='title'>Posts</h3>
         <button className='btn-primary btn btn-sm'>

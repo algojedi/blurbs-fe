@@ -61,40 +61,11 @@ const PostDetailPage = () => {
     console.log({ isLoading, isSuccess, isError, error, data });
   };
 
-  // return <Editor />
+  const postHTML = sanitizeHtml(post?.htmlContent ?? '')
+
   return (
-      <div
-        dangerouslySetInnerHTML={ __html : sanitizeHtml(post?.htmlContent ?? '')}
-      />)
+      <div dangerouslySetInnerHTML={ { __html : postHTML } } />)
+  // return <Editor />
+}
 
 export default PostDetailPage;
-
-
-  /*
-  return (
-    <div className='container'>
-      <div className='card'>
-        <div className='card-body'>
-          <h4 className='card-title'>{post?.title}</h4>
-          <p className='card-text'>{post?.content}</p>
-          <p className='card-text'>Author: {post?.appUser.name}</p>
-          <p className='card-text'>Creation Date: {post?.creationDate}</p>
-          <p className='card-text'>Avg Rating: {post?.averageRating ?? 'unrated'}</p>
-          <div className='d-flex justify-content-end'>
-            <FontAwesomeIcon
-              className='mx-2'
-              icon={faEdit}
-              onClick={() => handleEditPost(post?.id)}
-            />
-            <FontAwesomeIcon
-              icon={faTrash}
-              className='mx-2'
-              onClick={() => handleDeletePost(post?.id)}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-  */
