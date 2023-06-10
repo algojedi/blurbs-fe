@@ -3,9 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 import { Post } from '../../../types/types';
 import { deletePost, fetchPost } from '../../../api/api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Editor from '../../organisms/editor/editor';
+import { sanitizeHtml } from '../../../util/util';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -62,7 +61,14 @@ const PostDetailPage = () => {
     console.log({ isLoading, isSuccess, isError, error, data });
   };
 
-  return <Editor />
+  // return <Editor />
+  return (
+      <div
+        dangerouslySetInnerHTML={ __html : sanitizeHtml(post?.htmlContent ?? '')}
+      />)
+
+export default PostDetailPage;
+
 
   /*
   return (
@@ -90,7 +96,5 @@ const PostDetailPage = () => {
       </div>
     </div>
   );
-  */
 };
-
-export default PostDetailPage;
+  */
