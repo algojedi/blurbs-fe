@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import Posts from '../../organisms/post-list/post-list';
+import PostList from '../../organisms/post-list/post-list';
 import { ThemeContext } from '../../../context/theme-provider';
 import { useQuery } from 'react-query';
 import { fetchPosts } from '../../../api/api';
@@ -19,11 +19,11 @@ const PostsListPage = () => {
     return <div className='text-danger'>Oops ... error loading posts</div>;
   }
 
-  const result = isLoading ? <div>...loading</div> : <Posts posts={posts} />;
+  const listOfPosts = isLoading ? <div>...loading</div> : <PostList posts={posts} />;
 
   return (
     <div className='p-3'>
-      {result}
+      {listOfPosts}
     </div>
   );
 };

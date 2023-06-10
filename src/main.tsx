@@ -9,6 +9,7 @@ import PostDetailPage from './components/pages/post/post-detail-page.tsx';
 import PostsListPage from './components/pages/post/posts-list-page.tsx';
 import AboutPage from './components/pages/about/about-page.tsx';
 import ProfilePage from './components/pages/profile/profile-page.tsx';
+import AddPostPage from './components/pages/add-post/add-post-page.tsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProfilePage />,
+      },
+      {
+        path: '/posts/create',
+        element: <AddPostPage />,
       },
       {
         path: '/about',

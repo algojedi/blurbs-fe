@@ -49,10 +49,10 @@ const PostDetailPage = () => {
     return <div>Loading post details...</div>;
   }
 
-  const handleEditPost = (id?: number) => {
-    setShowEditor(true);
-    console.log('Edit post ' + id);
-  };
+  // const handleEditPost = (id?: number) => {
+  //   setShowEditor(true);
+  //   console.log('Edit post ' + id);
+  // };
 
   const handleDeletePost = (id?: number) => {
     if (!id) throw new Error('Post id is not defined');

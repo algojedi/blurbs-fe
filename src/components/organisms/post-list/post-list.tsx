@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Post } from '../../../types/types';
 import { ThemeContext } from '../../../context/theme-provider';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './post-list.scss';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -11,13 +11,13 @@ export type PostListProps = { classNames?: string; posts?: Post[] };
 
 const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
   const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   // TODO: apply these somewhere
   const cardClassNames =
     'card card-link mb-3 link-unstyled ' + theme === 'dark'
       ? 'bg-dark text-white'
       : '';
-
 
   return (
     <div className='p-3'>
@@ -27,7 +27,10 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
           <FontAwesomeIcon
             icon={faPlus}
             className='mx-2'
-            // onClick={() => handleDeletePost(post?.id)}
+            onClick={() => {
+            console.log('clicked add post');
+            navigate('/posts/create')}
+            } 
           />
         </button>
       </div>
