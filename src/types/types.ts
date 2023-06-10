@@ -25,8 +25,16 @@ export type AppUser = {
 // Theme Types
 
 export type Theme = {
-    backgroundColor: string;
-    color: string;
+    backgroundColor: {
+      primary: string;
+      secondary: string;
+    }
+    text : { 
+      color: {
+        primary: string;
+        secondary: string;
+      } 
+    }
 }
 
 export type Themes = {
