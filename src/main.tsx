@@ -18,24 +18,26 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'posts',
-        element: <PostsListPage />,
-      },
-      {
-        path: 'posts/:postId',
-        element: <PostDetailPage />,
-      },
-      {
-        path: '/profile',
+        path: 'profile',
         element: <ProfilePage />,
       },
       {
-        path: '/posts/create',
-        element: <AddPostPage />,
+        path: 'about',
+        element: <AboutPage />,
       },
       {
-        path: '/about',
-        element: <AboutPage />,
+        path: 'posts',
+        children: [
+          { index: true, element: <PostsListPage /> },
+          {
+            path: 'create',
+            element: <AddPostPage />,
+          },
+          {
+            path: ':postId',
+            element: <PostDetailPage />,
+          },
+        ],
       },
     ],
   },
