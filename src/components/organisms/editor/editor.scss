@@ -1,6 +1,18 @@
 // styling taken from 
 // https://github.com/WebDevSimplified/google-docs-clone/blob/main/client/src/styles.css
 
+
+.post-options {
+  // position: sticky;
+  // top: 0;
+  // z-index: 10;
+}
+
+.container {
+  max-width: 100%;
+}
+
+
 .container .ql-editor {
   width: 100%;
   min-height: 300px;
@@ -19,9 +31,9 @@
 .container .ql-toolbar.ql-snow {
   display: flex;
   justify-content: center;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  // position: sticky;
+  // top: 0;
+  // z-index: 1;
   background-color: #F3F3F3;
   border: none;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);

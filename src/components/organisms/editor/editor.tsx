@@ -47,7 +47,15 @@ export default function Editor() {
   };
 
   return (
-    <>
+    <div className=''>
+      <div className="post-options">
+      <div className='d-flex justify-content-end px-4 mb-4 mt-1'>
+        <button className='btn btn-primary' onClick={handleSavePost}>
+          SAVE
+        </button>
+
+      </div>
+      </div>
       <ReactQuill
         theme='snow'
         value={value}
@@ -55,11 +63,6 @@ export default function Editor() {
         modules={modules}
         className='container bg-secondary'
       />
-      <div className='d-flex justify-content-end px-4 mb-4 mt-1'>
-        <button className='btn btn-primary' onClick={handleSavePost}>
-          SAVE
-        </button>
-      </div>
-    </>
+    </div>
   );
 }
