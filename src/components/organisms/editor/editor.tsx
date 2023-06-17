@@ -7,9 +7,15 @@ import './editor.scss';
 import { API_URL } from '../../../api/api';
 import { modules } from './util';
 
-export default function Editor() {
-  const [value, setValue] = useState<TypeDelta>();
-  const [valueHTML, setValueHTML] = useState<string>();
+
+export type EditorProps = {
+  // handleSavePost: ({ value, valueHTML }: SavePostProps) => void;
+  setValue: ( deltaValue : TypeDelta ) => void;
+  value?: TypeDelta;
+  setValueHTML: ( strValue : string) => void;
+};
+
+export default function Editor({ setValue, setValueHTML, value }: EditorProps) {
 
   const onEditorChange = (
     value: string,
@@ -26,36 +32,8 @@ export default function Editor() {
     // console.log(foo);
   };
 
-  const handleSavePost = () => {
-    console.log('Save post');
-    console.log({ value, valueHTML });
-    // send post request to server
-    const body = {
-      userId: 1,
-      quillContent: JSON.stringify(value),
-      htmlContent: valueHTML,
-    };
-    const reply = fetch(`${API_URL}/post`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-    // TODO: navigate to posts page on success  
-  
-  };
-
   return (
     <div className=''>
-      <div className="post-options">
-      <div className='d-flex justify-content-end px-4 mb-4 mt-1'>
-        <button className='btn btn-primary' onClick={handleSavePost}>
-          SAVE
-        </button>
-
-      </div>
-      </div>
       <ReactQuill
         theme='snow'
         value={value}
