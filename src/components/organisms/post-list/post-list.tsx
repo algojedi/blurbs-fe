@@ -1,17 +1,16 @@
 import React, { useContext } from 'react';
 import { Post } from '../../../types/types';
 import { ThemeContext } from '../../../context/theme-provider';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './post-list.scss';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import PostListItem from '../../molecules/post-list-item';
+import './post-list.scss';
 
 export type PostListProps = { classNames?: string; posts?: Post[] };
 
 const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
   const { theme } = useContext(ThemeContext);
-  const navigate = useNavigate();
 
   // TODO: apply these somewhere
   const cardClassNames =
@@ -23,16 +22,12 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
     <div className='p-3'>
       <div className='d-flex justify-content-between'>
         <h3 className='title'>Posts</h3>
-        <button className='btn-primary btn btn-sm'>
+        <NavLink to={`/posts/create`}>
           <FontAwesomeIcon
             icon={faPlus}
-            className='mx-2'
-            onClick={() => {
-            console.log('clicked add post');
-            navigate('/posts/create')}
-            } 
+            className='mr-2'
           />
-        </button>
+        </NavLink>
       </div>
       {posts ? (
         posts.map((post) => (

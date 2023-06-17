@@ -14,8 +14,6 @@ export type Hashtag = {
   name: string;
 }
 
-
-
 export type AppUser = {
   id: number;
   name: string;
@@ -24,7 +22,13 @@ export type AppUser = {
 
 // Theme Types
 
+export enum ThemeName {
+  DARK = 'DARK',
+  LIGHT = 'LIGHT',
+}
+
 export type Theme = {
+    name: ThemeName;
     backgroundColor: {
       primary: string;
       secondary: string;
@@ -48,4 +52,4 @@ export type ThemeContextProps = {
   theme: Theme;
 }
 
-export const IS_DARK = 'isDark';
+export const IS_DARK = 'IS_DARK';
