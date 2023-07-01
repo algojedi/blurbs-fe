@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
-import { Post } from '../../../types/types';
-import { deletePost, fetchPost } from '../../../api/api';
-import Editor from '../../organisms/editor/editor';
+import { deletePost } from '../../../api/api';
 import { sanitizeHtml } from '../../../util/util';
+import { useGetPost } from '../../../hooks/useGet';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
 
-	// TODO: react router loader may be better option
+  // TODO: react router loader may be better option
   if (!postId) throw new Error('Post id is not defined');
-	const navigate = useNavigate()
+  const navigate = useNavigate();
   const [showEditor, setShowEditor] = useState(false);
 
   const {
@@ -19,7 +18,7 @@ const PostDetailPage = () => {
     isLoading: isLoadingPost,
     isError: isErrorPost,
     error: errorPost,
-  } = useQuery<Post, Error>(['post', postId], () => fetchPost(+postId));
+  } = useGetPost(postId);
 
   const deletePostMutation = useMutation((id: number) => {
     return deletePost(id);
@@ -34,7 +33,7 @@ const PostDetailPage = () => {
   useEffect(() => {
     if (deletePostMutation.isSuccess) {
       console.log('Post deleted successfully');
-			navigate('/posts')
+      navigate('/posts');
     }
   }, [deletePostMutation.isSuccess, navigate]);
 
@@ -49,11 +48,6 @@ const PostDetailPage = () => {
     return <div>Loading post details...</div>;
   }
 
-  // const handleEditPost = (id?: number) => {
-  //   setShowEditor(true);
-  //   console.log('Edit post ' + id);
-  // };
-
   const handleDeletePost = (id?: number) => {
     if (!id) throw new Error('Post id is not defined');
     deletePostMutation.mutate(id);
@@ -61,11 +55,9 @@ const PostDetailPage = () => {
     console.log({ isLoading, isSuccess, isError, error, data });
   };
 
-  const postHTML = sanitizeHtml(post?.htmlContent ?? '')
+  const postHTML = sanitizeHtml(post?.htmlContent ?? '');
 
-  return (
-      <div dangerouslySetInnerHTML={ { __html : postHTML } } />)
-  // return <Editor />
-}
+  return <div dangerouslySetInnerHTML={{ __html: postHTML }} />;
+};
 
 export default PostDetailPage;

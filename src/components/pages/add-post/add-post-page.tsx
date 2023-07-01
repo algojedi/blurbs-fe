@@ -3,9 +3,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { API_URL, deletePost } from '../../../api/api';
 import { Delta as TypeDelta } from 'quill';
-import Editor, {
-  EditorProps,
-} from '../../organisms/editor/editor';
+import Editor, { EditorProps } from '../../organisms/editor/editor';
 
 export type SavePostProps = {
   value?: TypeDelta;
@@ -35,7 +33,7 @@ const AddPostPage = () => {
     console.log({ isLoading, isSuccess, isError, error, data });
   };
 
-  const handleSavePost = ({ value, valueHTML }: SavePostProps) => {
+  const handleSavePost = async ({ value, valueHTML }: SavePostProps) => {
     console.log('Save post');
     console.log({ value, valueHTML });
     // send post request to server
@@ -44,13 +42,15 @@ const AddPostPage = () => {
       quillContent: JSON.stringify(value),
       htmlContent: valueHTML,
     };
-    const reply = fetch(`${API_URL}/post`, {
+    // TODO: use custom hook
+    const reply = await fetch(`${API_URL}/post`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     });
+    const data = await reply.json();
     // TODO: navigate to posts page on success
   };
 
