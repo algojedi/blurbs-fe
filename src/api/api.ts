@@ -4,6 +4,7 @@ export const API_URL = 'http://localhost:8080/api';
 export const GET_POSTS_URL = `${API_URL}/posts`;
 export const POST_POST_URL = `${API_URL}/post`;
 
+// TODO: change deletePost to use api client
 export const deletePost = async (id: number) =>
   axios(`${API_URL}/posts/${id}`, {
     method: 'DELETE',
