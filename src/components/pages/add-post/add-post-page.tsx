@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { API_URL, deletePost } from '../../../api/api';
 import { Delta as TypeDelta } from 'quill';
-import Editor, { EditorProps } from '../../organisms/editor/editor';
+import Editor from '../../organisms/editor/editor';
+import { useCreatePost } from '../../../hooks/useCreatePost';
+import { PostRequest } from '../../../types/types';
 
 export type SavePostProps = {
   value?: TypeDelta;
@@ -14,7 +14,12 @@ const AddPostPage = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState<TypeDelta>();
   const [valueHTML, setValueHTML] = useState<string>('');
+  const { mutate, isLoading: isCreatePostLoading, isError: isCreatePostError,
+    isSuccess: isCreatePostSuccess, error: createPostError
+  } = useCreatePost();
 
+  console.log({ isCreatePostLoading, isCreatePostError });
+  /* DELETE POST
   const deletePostMutation = useMutation((id: number) => {
     return deletePost(id);
   });
@@ -32,26 +37,27 @@ const AddPostPage = () => {
     const { isLoading, isSuccess, isError, error, data } = deletePostMutation;
     console.log({ isLoading, isSuccess, isError, error, data });
   };
+  */
+
+  useEffect(() => {
+    if (isCreatePostSuccess) {
+      console.log('Post created successfully');
+      navigate('/posts');
+      return
+    }
+  })
 
   const handleSavePost = async ({ value, valueHTML }: SavePostProps) => {
     console.log('Save post');
     console.log({ value, valueHTML });
     // send post request to server
-    const body = {
+    const body : PostRequest = {
       userId: 1,
       quillContent: JSON.stringify(value),
       htmlContent: valueHTML,
     };
     // TODO: use custom hook
-    const reply = await fetch(`${API_URL}/post`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await reply.json();
-    // TODO: navigate to posts page on success
+    mutate(body); 
   };
 
   return (

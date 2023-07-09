@@ -9,6 +9,12 @@ export type Post = {
   hashtags?: Hashtag[];
 }
 
+export type PostRequest = {
+  userId: number;
+  quillContent: string;
+  htmlContent: string;
+}
+
 export type Hashtag = {
   id: number;
   name: string;
