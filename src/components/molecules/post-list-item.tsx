@@ -2,16 +2,37 @@ import React, { useContext } from 'react';
 import { Post } from '../../types/types';
 import { convertTimestampToDateTime } from '../../util/util';
 import { ThemeContext } from '../../context/theme-provider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import './post-list-item.scss';
 
+export type PostListItemProps = {
+  post: Post;
+  isEditable: boolean;
+  classNames?: string;
+};
 
-export type PostListItemProps = { post: Post; classNames?: string };
-
-const PostListItem: React.FC<PostListItemProps> = ({ classNames, post }) => {
-	const { theme } = useContext(ThemeContext);
+const PostListItem: React.FC<PostListItemProps> = ({
+  classNames,
+  isEditable,
+  post,
+}) => {
+  const { theme } = useContext(ThemeContext);
   return (
     <div className='d-flex justify-content-between hover-light px-2 py-1'>
-      <div className='' style={{ color : theme.text.color.primary}}>{post.appUser.name}</div>
-      <div style={{ color : theme.text.color.secondary}}>{convertTimestampToDateTime(post.creationDate)}</div>
+      <div className='post-list-item_name d-flex'>
+        {isEditable && (
+          <div className='post-list-item_name_delete-icon'>
+            <FontAwesomeIcon icon={faTrash} />
+          </div>
+        )}
+        <div className='' style={{ color: theme.text.color.primary }}>
+          {post.appUser.name}
+        </div>
+      </div>
+      <div style={{ color: theme.text.color.secondary }}>
+        {convertTimestampToDateTime(post.creationDate)}
+      </div>
     </div>
   );
 };
