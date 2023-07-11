@@ -4,6 +4,7 @@ import { Delta as TypeDelta } from 'quill';
 import Editor from '../../organisms/editor/editor';
 import { useCreatePost } from '../../../hooks/useCreatePost';
 import { PostRequest } from '../../../types/types';
+import './add-post-page.scss';
 
 export type SavePostProps = {
   value?: TypeDelta;
@@ -18,7 +19,7 @@ const AddPostPage = () => {
     isSuccess: isCreatePostSuccess, error: createPostError
   } = useCreatePost();
 
-  console.log({ isCreatePostLoading, isCreatePostError });
+  // console.log({ isCreatePostLoading, isCreatePostError });
   /* DELETE POST
   const deletePostMutation = useMutation((id: number) => {
     return deletePost(id);
@@ -47,6 +48,15 @@ const AddPostPage = () => {
     }
   })
 
+  const handleAddTag = () => {
+    console.log('Add tag');
+  }
+
+  const handleCancelPost = ()  => {
+    console.log('Cancel post');
+    navigate('/posts');
+  }
+
   const handleSavePost = async ({ value, valueHTML }: SavePostProps) => {
     console.log('Save post');
     console.log({ value, valueHTML });
@@ -61,14 +71,20 @@ const AddPostPage = () => {
   };
 
   return (
-    <div className='add-post-page d-flex'>
+    <div className='add-post-page d-flex justify-content-center'>
       <div className='post-options'>
-        <div className='d-flex justify-content-end px-4 mb-4 mt-1'>
+        <div className='d-flex flex-column p-2'>
           <button
-            className='btn btn-primary'
+            className='btn btn-sm btn-primary m-1'
             onClick={() => handleSavePost({ value, valueHTML })}
           >
             SAVE
+          </button>
+          <button
+            className='btn btn-sm btn-danger m-1'
+            onClick={handleCancelPost}
+          >
+            CANCEL
           </button>
         </div>
       </div>
@@ -78,6 +94,10 @@ const AddPostPage = () => {
         setValue={setValue}
         setValueHTML={setValueHTML}
       />
+      <div className="tag-form d-flex flex-column align-items-center form-group p-3 flex-grow-1">
+        <input type="text" className="form-control tag-form__input w-50" placeholder='Enter Tag...'/>
+        <button className="btn-sm btn btn-primary w-50 mt-2" onClick={handleAddTag}>Add</button>
+      </div>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { ThemeContext } from '../../context/theme-provider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import './post-list-item.scss';
+import Tag from './tag/tag';
 
 export type PostListItemProps = {
   post: Post;
@@ -30,6 +31,7 @@ const PostListItem: React.FC<PostListItemProps> = ({
           {post.appUser.name}
         </div>
       </div>
+      <Tag name='test-tag' />
       <div style={{ color: theme.text.color.secondary }}>
         {convertTimestampToDateTime(post.creationDate)}
       </div>
