@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import './navbar.scss';
 
-export const NavigationBar = () => {
+export const NavBar = () => {
   const { toggleTheme, theme } = useContext(ThemeContext);
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>

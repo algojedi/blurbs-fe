@@ -3,8 +3,8 @@ import AuthProvider from './context/auth-provider';
 import ThemeProvider from './context/theme-provider';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { Outlet } from 'react-router-dom';
-import MainPage from './components/pages/main/main-page';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes/router';
 
 function App() {
   const queryClient = new QueryClient({});
@@ -12,8 +12,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ThemeProvider>
-          <MainPage />
-          <Outlet />
+          <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
         </ThemeProvider>
       </AuthProvider>
       <ReactQueryDevtools initialIsOpen={true} />

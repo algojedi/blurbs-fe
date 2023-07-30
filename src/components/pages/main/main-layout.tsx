@@ -1,22 +1,20 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../../../context/theme-provider';
-import { NavigationBar } from '../../organisms/navbar/navbar';
+import { NavBar } from '../../organisms/navbar/navbar';
+import { Outlet } from 'react-router-dom';
 
-// TODO: this should be a layout component
-const MainPage: React.FC = () => {
+// layout component
+const MainLayout: React.FC = () => {
   const { isDark, toggleTheme, theme } = useContext(ThemeContext);
   return (
     <div
       className='app'
       style={{ backgroundColor: theme.backgroundColor, color: theme.color }}
     >
-      <NavigationBar />
+      <NavBar />
+      <Outlet />
     </div>
   );
 };
 
-export default MainPage;
-
-      // <button type='button' onClick={toggleTheme}>
-      //   Toggle theme
-      // </button>
+export default MainLayout;

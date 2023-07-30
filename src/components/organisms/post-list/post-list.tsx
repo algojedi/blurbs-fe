@@ -24,6 +24,8 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
     setIsEditMode((p) => !p);
   };
 
+  // TODO: Edit button should change to Done button when in edit mode
+
   return (
     <div className='p-3'>
       <div className='post-list-options d-flex justify-content-between'>
