@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { Post } from '../../../types/types';
-import { ThemeContext } from '../../../context/theme-provider';
 import { NavLink } from 'react-router-dom';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Post } from '../../../types/types';
+import { ThemeContext } from '../../../context/theme-provider';
 import PostListItem from '../../molecules/post-list-item';
 import './post-list.scss';
 
@@ -24,10 +25,38 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
     setIsEditMode((p) => !p);
   };
 
+  const handleDeletePost = (id: number) => {
+    console.log('delete button clicked');
+    console.log(id);
+  };
+
   const createPostLink = (
     <NavLink to={`/posts/create`}>
       <FontAwesomeIcon icon={faPlus} className='mr-2' />
     </NavLink>
+  );
+
+  const postsList = posts ? (
+    posts.map((post) => (
+      <div className='d-flex align-items-center'>
+        {isEditMode && (
+          <div
+            role='button'
+            className='post-list-item_name_delete-icon'
+            onClick={() => handleDeletePost(post.id)}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </div>
+        )}
+        <div className='w-100'>
+          <NavLink to={`/posts/${post.id}`} key={post.id}>
+            <PostListItem post={post} />
+          </NavLink>
+        </div>
+      </div>
+    ))
+  ) : (
+    <div>No posts</div>
   );
 
   return (
@@ -39,20 +68,12 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
         >
           {isEditMode ? 'Done' : 'Edit'}
         </button>
-        {isEditMode ? null : createPostLink }
+        {isEditMode || createPostLink}
       </div>
       <div className=''>
         <h3 className='title'>Posts</h3>
       </div>
-      {posts ? (
-        posts.map((post) => (
-          <NavLink to={`/posts/${post.id}`} key={post.id}>
-            <PostListItem post={post} isEditable={isEditMode} />
-          </NavLink>
-        ))
-      ) : (
-        <div>No posts</div>
-      )}
+      {postsList}
     </div>
   );
 };
