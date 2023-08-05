@@ -3,3 +3,13 @@
 }
 
 
+/* Add this to make the overlay grey with some transparency */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha (last value) to control transparency */
+  z-index: 999; /* Make sure it's above everything else on the page */
+}

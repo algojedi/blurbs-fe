@@ -7,12 +7,15 @@ import { Post } from '../../../types/types';
 import { ThemeContext } from '../../../context/theme-provider';
 import PostListItem from '../../molecules/post-list-item';
 import './post-list.scss';
+import DeleteModal from '../delete-modal/delete-modal';
 
 export type PostListProps = { classNames?: string; posts?: Post[] };
 
 const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
   const { theme } = useContext(ThemeContext);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<number | null>(null);
 
   // TODO: apply these somewhere
   const cardClassNames =
@@ -26,8 +29,21 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
   };
 
   const handleDeletePost = (id: number) => {
-    console.log('delete button clicked');
-    console.log(id);
+    console.log('Delete post clicked');
+    setPostToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (postToDelete !== null) {
+      console.log('Post with ID ' + postToDelete + ' will be deleted.');
+      //  perform the actual deletion of the post using the postToDelete ID.
+    }
+    setShowDeleteModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
   };
 
   const createPostLink = (
@@ -74,6 +90,12 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
         <h3 className='title'>Posts</h3>
       </div>
       {postsList}
+      {showDeleteModal && <div className='modal-overlay'></div>}
+      <DeleteModal
+        show={showDeleteModal}
+        onCancel={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 };
