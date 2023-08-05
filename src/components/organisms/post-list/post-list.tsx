@@ -24,7 +24,11 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
     setIsEditMode((p) => !p);
   };
 
-  // TODO: Edit button should change to Done button when in edit mode
+  const createPostLink = (
+    <NavLink to={`/posts/create`}>
+      <FontAwesomeIcon icon={faPlus} className='mr-2' />
+    </NavLink>
+  );
 
   return (
     <div className='p-3'>
@@ -33,11 +37,9 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
           className='post-list-options_edit-btn btn btn-outline-secondary btn-sm'
           onClick={handleEditBtnClick}
         >
-          Edit
+          {isEditMode ? 'Done' : 'Edit'}
         </button>
-        <NavLink to={`/posts/create`}>
-          <FontAwesomeIcon icon={faPlus} className='mr-2' />
-        </NavLink>
+        {isEditMode ? null : createPostLink }
       </div>
       <div className=''>
         <h3 className='title'>Posts</h3>
