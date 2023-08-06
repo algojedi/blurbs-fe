@@ -1,28 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery } from 'react-query';
-import { deletePost } from '../../../api/api';
 import { sanitizeHtml } from '../../../util/util';
 import { useGetPost } from '../../../hooks/useGet';
+import { useDeletePost } from '../../../hooks/useDeletePost';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
 
-  // TODO: react router loader may be better option
   if (!postId) throw new Error('Post id is not defined');
   const navigate = useNavigate();
-  const [showEditor, setShowEditor] = useState(false);
+  // const [showEditor, setShowEditor] = useState(false);
 
   const {
     data: post,
     isLoading: isLoadingPost,
     isError: isErrorPost,
     error: errorPost,
+    refetch
   } = useGetPost(postId);
 
-  const deletePostMutation = useMutation((id: number) => {
-    return deletePost(id);
-  });
+  const { mutate : deletePost, isLoading, isError, isSuccess, error } = useDeletePost();
 
   useEffect(() => {
     if (isErrorPost) {
@@ -31,11 +28,20 @@ const PostDetailPage = () => {
   }, [isErrorPost, errorPost]);
 
   useEffect(() => {
-    if (deletePostMutation.isSuccess) {
+    if (isSuccess) {
+      // TODO: is this condition neccessary?
       console.log('Post deleted successfully');
       navigate('/posts');
     }
-  }, [deletePostMutation.isSuccess, navigate]);
+  }, [isSuccess, navigate]);
+
+  /* DELETE POST
+  const handleDeletePost = (id?: number) => {
+    if (!id) throw new Error('Post id is not defined');
+    deletePost(id);
+    console.log({ isLoading, isSuccess, isError, error });
+  };
+  */
 
   if (isErrorPost) {
     // TODO: render error page
@@ -48,15 +54,7 @@ const PostDetailPage = () => {
     return <div>Loading post details...</div>;
   }
 
-  const handleDeletePost = (id?: number) => {
-    if (!id) throw new Error('Post id is not defined');
-    deletePostMutation.mutate(id);
-    const { isLoading, isSuccess, isError, error, data } = deletePostMutation;
-    console.log({ isLoading, isSuccess, isError, error, data });
-  };
-
   const postHTML = sanitizeHtml(post?.htmlContent ?? '');
-
   return <div dangerouslySetInnerHTML={{ __html: postHTML }} />;
 };
 

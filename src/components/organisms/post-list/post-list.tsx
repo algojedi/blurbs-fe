@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,7 @@ import { ThemeContext } from '../../../context/theme-provider';
 import PostListItem from '../../molecules/post-list-item';
 import './post-list.scss';
 import DeleteModal from '../delete-modal/delete-modal';
+import { useDeletePost } from '../../../hooks/useDeletePost';
 
 export type PostListProps = { classNames?: string; posts?: Post[] };
 
@@ -16,6 +17,19 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postToDelete, setPostToDelete] = useState<number | null>(null);
+
+  // TODO!: state needs to be managed by the parent component
+
+  const { mutate, isLoading, isError, error, isSuccess } = useDeletePost();
+
+
+  // create useEffect to invalidate the query cache when a post is deleted
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('Post deleted successfully');
+      // need to refetch
+    }
+  }, [isSuccess]);
 
   // TODO: apply these somewhere
   const cardClassNames =
@@ -38,6 +52,7 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
     if (postToDelete !== null) {
       console.log('Post with ID ' + postToDelete + ' will be deleted.');
       //  perform the actual deletion of the post using the postToDelete ID.
+      mutate(postToDelete);
     }
     setShowDeleteModal(false);
   };
@@ -54,7 +69,7 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
 
   const postsList = posts ? (
     posts.map((post) => (
-      <div className='d-flex align-items-center'>
+      <div className='d-flex align-items-center' key={post.id} >
         {isEditMode && (
           <div
             role='button'
@@ -74,6 +89,8 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
   ) : (
     <div>No posts</div>
   );
+
+  // TODO: create a toast for when a post is not deleted successfully
 
   return (
     <div className='p-3'>
@@ -96,6 +113,7 @@ const PostList: React.FC<PostListProps> = ({ classNames, posts }) => {
         onCancel={handleCancelDelete}
         onConfirm={handleConfirmDelete}
       />
+      {isError && <div>Oops ... something went wrong when deleting post</div>}
     </div>
   );
 };

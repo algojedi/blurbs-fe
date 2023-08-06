@@ -3,12 +3,13 @@ import axios, { AxiosResponse } from 'axios';
 export const API_URL = 'http://localhost:8080/api';
 export const GET_POSTS_URL = `${API_URL}/posts`;
 export const POST_POST_URL = `${API_URL}/post`;
+export const DELETE_POST_URL = `${API_URL}/posts`;
 
 // TODO: change deletePost to use api client
-export const deletePost = async (id: number) =>
-  axios(`${API_URL}/posts/${id}`, {
-    method: 'DELETE',
-  });
+// export const deletePost = async (id: number) =>
+//   axios(`${API_URL}/posts/${id}`, {
+//     method: 'DELETE',
+//   });
 
 export const apiClient = {
   get: async <T>(url: string): Promise<T> => {

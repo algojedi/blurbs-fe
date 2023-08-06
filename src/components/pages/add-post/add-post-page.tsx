@@ -66,7 +66,6 @@ const AddPostPage = () => {
       quillContent: JSON.stringify(value),
       htmlContent: valueHTML,
     };
-    // TODO: use custom hook
     mutate(body); 
   };
 
