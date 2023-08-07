@@ -16,7 +16,6 @@ const PostDetailPage = () => {
     isLoading: isLoadingPost,
     isError: isErrorPost,
     error: errorPost,
-    refetch
   } = useGetPost(postId);
 
   const { mutate : deletePost, isLoading, isError, isSuccess, error } = useDeletePost();
