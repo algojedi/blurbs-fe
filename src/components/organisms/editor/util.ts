@@ -7,7 +7,7 @@ export const modules = {
     [{ font: [] }],
     [{ align: ['right', 'center', 'justify'] }],
     [{ list: 'ordered' }, { list: 'bullet' }],
-    ['link', 'image'],
+    ['link'], // removed image option
     [{ color: ['red', '#785412'] }],
   ],
 };

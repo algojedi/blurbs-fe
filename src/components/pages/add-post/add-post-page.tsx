@@ -85,7 +85,7 @@ const AddPostPage = () => {
         <div className='tag-form d-flex flex-column align-items-center form-group p-3 flex-grow-1'>
           <input
             type='text'
-            className='form-control tag-form__input w-50'
+            className='form-control-sm tag-form__input w-50'
             placeholder='Enter here...'
           />
           <button
