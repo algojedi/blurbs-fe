@@ -24,6 +24,7 @@ export const sanitizeHtml = (htmlContent: string) => {
 };
 
 export const convertTimestampToDateTime = (date: string) => {
+  console.log({ date })
   const dateObj = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
     dateStyle: 'long',

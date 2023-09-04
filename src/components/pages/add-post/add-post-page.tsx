@@ -15,8 +15,12 @@ const AddPostPage = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState<TypeDelta>();
   const [valueHTML, setValueHTML] = useState<string>('');
-  const { mutate, isLoading: isCreatePostLoading, isError: isCreatePostError,
-    isSuccess: isCreatePostSuccess, error: createPostError
+  const {
+    mutate,
+    isLoading: isCreatePostLoading,
+    isError: isCreatePostError,
+    isSuccess: isCreatePostSuccess,
+    error: createPostError,
   } = useCreatePost();
 
   // console.log({ isCreatePostLoading, isCreatePostError });
@@ -44,58 +48,69 @@ const AddPostPage = () => {
     if (isCreatePostSuccess) {
       console.log('Post created successfully');
       navigate('/posts');
-      return
+      return;
     }
-  })
+  });
 
   const handleAddTag = () => {
     console.log('Add tag');
-  }
+  };
 
-  const handleCancelPost = ()  => {
+  const handleCancelPost = () => {
     console.log('Cancel post');
     navigate('/posts');
-  }
+  };
 
   const handleSavePost = async ({ value, valueHTML }: SavePostProps) => {
     console.log('Save post');
     console.log({ value, valueHTML });
     // send post request to server
-    const body : PostRequest = {
+    const body: PostRequest = {
       userId: 1,
       quillContent: JSON.stringify(value),
       htmlContent: valueHTML,
     };
-    mutate(body); 
+    mutate(body);
   };
 
   return (
     <div className='add-post-page d-flex justify-content-center'>
-      <div className='post-options'>
-        <div className='d-flex flex-column p-2'>
-          <button
-            className='btn btn-sm btn-primary m-1'
-            onClick={() => handleSavePost({ value, valueHTML })}
-          >
-            SAVE
-          </button>
-          <button
-            className='btn btn-sm btn-danger m-1'
-            onClick={handleCancelPost}
-          >
-            CANCEL
-          </button>
-        </div>
-      </div>
       <Editor
         // handleSavePost={handleSavePost}
         value={value}
         setValue={setValue}
         setValueHTML={setValueHTML}
       />
-      <div className="tag-form d-flex flex-column align-items-center form-group p-3 flex-grow-1">
-        <input type="text" className="form-control tag-form__input w-50" placeholder='Enter Tag...'/>
-        <button className="btn-sm btn btn-primary w-50 mt-2" onClick={handleAddTag}>Add</button>
+      <div className='d-flex flex-column justify-content-between'>
+        <div className='tag-form d-flex flex-column align-items-center form-group p-3 flex-grow-1'>
+          <input
+            type='text'
+            className='form-control tag-form__input w-50'
+            placeholder='Enter here...'
+          />
+          <button
+            className='btn-sm btn btn-outline-primary w-50 mt-2'
+            onClick={handleAddTag}
+          >
+            Add Tag
+          </button>
+        </div>
+        <div className='post-options'>
+          <div className='d-flex flex-column p-2'>
+            <button
+              className='btn btn-sm btn-primary m-1'
+              onClick={() => handleSavePost({ value, valueHTML })}
+            >
+              SAVE
+            </button>
+            <button
+              className='btn btn-sm btn-danger m-1'
+              onClick={handleCancelPost}
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

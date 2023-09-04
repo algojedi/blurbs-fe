@@ -34,7 +34,7 @@ export default function Editor({ setValue, setValueHTML, value }: EditorProps) {
         value={value}
         onChange={onEditorChange}
         modules={modules}
-        className='container bg-secondary'
+        className='editor-container bg-secondary'
       />
     </div>
   );
