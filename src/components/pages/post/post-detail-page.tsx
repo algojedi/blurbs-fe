@@ -18,7 +18,13 @@ const PostDetailPage = () => {
     error: errorPost,
   } = useGetPost(postId);
 
-  const { mutate : deletePost, isLoading, isError, isSuccess, error } = useDeletePost();
+  const {
+    mutate: deletePost,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+  } = useDeletePost();
 
   useEffect(() => {
     if (isErrorPost) {
@@ -54,7 +60,12 @@ const PostDetailPage = () => {
   }
 
   const postHTML = sanitizeHtml(post?.htmlContent ?? '');
-  return <div dangerouslySetInnerHTML={{ __html: postHTML }} />;
+  // parent class of ql-editor is required to render styles
+  return (
+    <div className='ql-editor'>
+      <div dangerouslySetInnerHTML={{ __html: postHTML }} />;
+    </div>
+  );
 };
 
 export default PostDetailPage;
