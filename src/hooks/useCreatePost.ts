@@ -11,11 +11,6 @@ const createPost = async (postData: PostRequest) => {
   return await apiClient.post<Post>(POST_POST_URL, postData);
 };
 
-const deletePost = async (id: number) => {
-  const url = DELETE_POST_URL + '/' + id;
-  return await apiClient.delete<Post>(url);
-};
-
 export const useCreatePost = () => {
   return useMutation<Post, Error, PostRequest>(createPost, {
     onSuccess: (postData) => {

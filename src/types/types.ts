@@ -6,18 +6,23 @@ export type Post = {
   creationDate: string;
   averageRating?: number;
   appUser: AppUser;
-  hashtags?: Hashtag[];
+  tags?: Tag[];
 }
 
 export type PostRequest = {
   userId: number;
   quillContent: string;
   htmlContent: string;
+  tags?: Tag[];
 }
 
-export type Hashtag = {
-  id: number;
+export type Tag = {
+  id?: number;
   name: string;
+}
+
+export type TagRequest = {
+  content: Tag;
 }
 
 export type AppUser = {

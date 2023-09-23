@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Delta as TypeDelta } from 'quill';
 import Editor from '../../organisms/editor/editor';
 import { useCreatePost } from '../../../hooks/useCreatePost';
-import { PostRequest } from '../../../types/types';
+import { PostRequest, Tag } from '../../../types/types';
 import './add-post-page.scss';
+import { isValidTag } from './utils';
 
 export type SavePostProps = {
   value?: TypeDelta;
@@ -15,6 +16,8 @@ const AddPostPage = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState<TypeDelta>();
   const [valueHTML, setValueHTML] = useState<string>('');
+  const [tag, setTag] = useState<string>('');
+  const [tags, setTags] = useState<Tag[]>([]);
   const {
     mutate,
     isLoading: isCreatePostLoading,
@@ -53,7 +56,13 @@ const AddPostPage = () => {
   });
 
   const handleAddTag = () => {
-    console.log('Add tag');
+    if (!isValidTag(tag, tags)) {
+      console.log('invalid tag');
+      return;
+    }
+    console.log({ tag })
+    setTags((p) => [...p, { name : tag } ]);
+    setTag('');
   };
 
   const handleCancelPost = () => {
@@ -69,6 +78,7 @@ const AddPostPage = () => {
       userId: 1,
       quillContent: JSON.stringify(value),
       htmlContent: valueHTML,
+      tags: tags,
     };
     mutate(body);
   };
@@ -87,6 +97,8 @@ const AddPostPage = () => {
             type='text'
             className='form-control-sm tag-form__input w-50'
             placeholder='Enter here...'
+            value={tag}
+            onChange={(e) => setTag(e.target.value)} 
           />
           <button
             className='btn-sm btn btn-outline-primary w-50 mt-2'
