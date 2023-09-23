@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { MouseEventHandler, useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,6 +33,13 @@ const PostList: React.FC<PostListProps> = ({
     setIsEditMode((p) => !p);
   };
 
+  const handlePostClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    if (isEditMode) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
   const createPostLink = (
     <NavLink to={`/posts/create`}>
       <FontAwesomeIcon icon={faPlus} className='mr-2' />
@@ -53,7 +60,9 @@ const PostList: React.FC<PostListProps> = ({
             </div>
           )}
           <div className='w-100'>
-            <NavLink to={`/posts/${post.id}`} key={post.id}>
+            <NavLink to={`/posts/${post.id}`} key={post.id} aria-disabled='true' 
+           onClick={handlePostClick} 
+            >
               <PostListItem post={post} />
             </NavLink>
           </div>
