@@ -13,7 +13,8 @@ export type PostRequest = {
   userId: number;
   quillContent: string;
   htmlContent: string;
-  tags?: Tag[];
+  // tags?: Tag[];
+  tags: string[];
 }
 
 export type Tag = {
