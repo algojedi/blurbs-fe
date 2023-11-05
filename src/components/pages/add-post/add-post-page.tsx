@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Delta as TypeDelta } from 'quill';
 import Editor from '../../organisms/editor/editor';
 import { useCreatePost } from '../../../hooks/useCreatePost';
-import { PostRequest, Tag } from '../../../types/types';
+import { PostRequest } from '../../../types/types';
 import './add-post-page.scss';
 import { isValidPost, isValidTag } from './utils';
+import Tag from '../../molecules/tag/tag';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export type SavePostProps = {
   value?: TypeDelta;
@@ -26,7 +29,8 @@ const AddPostPage = () => {
     isSuccess: isCreatePostSuccess,
     error: createPostError,
   } = useCreatePost();
-  const [createPostErrorMessage, setCreatePostErrorMessage] = useState<string>('')
+  const [createPostErrorMessage, setCreatePostErrorMessage] =
+    useState<string>('');
 
   // console.log({ isCreatePostLoading, isCreatePostError });
   /* DELETE POST
@@ -62,17 +66,20 @@ const AddPostPage = () => {
     }
   });
 
-  console.log({ tags })
   const handleAddTag = () => {
     if (!isValidTag(tag, tags)) {
       console.log('invalid tag');
       return;
     }
-    console.log({ tag })
+    console.log({ tag });
     // setTags((p) => [...p, { name : tag } ]);
-    setTags((p) => [...p, tag ]);
+    setTags((p) => [...p, tag]);
     setTag('');
   };
+
+  const handleDeleteTag = (tag: string) => {
+    setTags((p) => p.filter((t) => t !== tag));
+  }
 
   const handleCancelPost = () => {
     console.log('Cancel post');
@@ -81,9 +88,9 @@ const AddPostPage = () => {
 
   const handleSavePost = async ({ value, valueHTML }: SavePostProps) => {
     console.log({ value, valueHTML });
-    if (!isValidPost( valueHTML )) {
+    if (!isValidPost(valueHTML)) {
       console.log('invalid post');
-      setCreatePostErrorMessage("Invalid post")
+      setCreatePostErrorMessage('Invalid post');
       return;
     }
     // send post request to server
@@ -95,6 +102,29 @@ const AddPostPage = () => {
     };
     mutate(body);
   };
+
+  const errorMessageComponent = (
+    <section className='text-danger'>{createPostErrorMessage}</section>
+  );
+
+
+  const displayTags = (
+    <section>
+      {tags.map((tag, index) => {
+        return (
+          <section className='d-flex justify-content-between p-1'>
+            <Tag key={index} name={tag} />{' '}
+            <div
+              role='button'
+              onClick={() => handleDeleteTag(tag)}
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </div>
+          </section>
+        );
+      })}
+    </section>
+  );
 
   return (
     <div className='add-post-page d-flex justify-content-center'>
@@ -109,9 +139,9 @@ const AddPostPage = () => {
           <input
             type='text'
             className='form-control-sm tag-form__input w-50'
-            placeholder='Enter here...'
+            placeholder='Tag name ...'
             value={tag}
-            onChange={(e) => setTag(e.target.value)} 
+            onChange={(e) => setTag(e.target.value)}
           />
           <button
             className='btn-sm btn btn-outline-primary w-50 mt-2'
@@ -122,9 +152,8 @@ const AddPostPage = () => {
         </div>
         <div className='post-options'>
           <div className='d-flex flex-column p-2'>
-            <section className='text-danger'>
-              {createPostErrorMessage}
-            </section>
+            {displayTags}
+            {errorMessageComponent}
             <button
               className='btn btn-sm btn-primary m-1'
               onClick={() => handleSavePost({ value, valueHTML })}

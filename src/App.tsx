@@ -12,7 +12,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ThemeProvider>
-          <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
+          <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
         </ThemeProvider>
       </AuthProvider>
       <ReactQueryDevtools initialIsOpen={true} />

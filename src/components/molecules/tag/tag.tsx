@@ -1,8 +1,5 @@
 
 import React, { useContext } from 'react';
-// import { ThemeContext } from '../../context/theme-provider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import './tag.scss';
 
 export type TagProps = {
