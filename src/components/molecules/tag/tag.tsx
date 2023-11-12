@@ -5,6 +5,7 @@ import './tag.scss';
 export type TagProps = {
 	name: string;
   classNames?: string;
+  id?: number;
 };
 
 const Tag: React.FC<TagProps> = ({ classNames, name, }) => {

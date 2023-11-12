@@ -3,9 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { sanitizeHtml } from '../../../util/util';
 import { useGetPost } from '../../../hooks/useGet';
 import { useDeletePost } from '../../../hooks/useDeletePost';
-import Tag from '../../molecules/tag/tag';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import TagList from '../../organisms/tag-list/tag-list';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -62,35 +60,20 @@ const PostDetailPage = () => {
     return <div>Loading post details...</div>;
   }
 
-  const dummyTags = ['tag1', 'tag2', 'tag3'];
-  const displayTags = (
-    <section>
-      {dummyTags.map((tag, index) => {
-        return (
-          <section key={index} className='d-flex justify-content-between p-1'>
-            <Tag name={tag} />{' '}
-            <div role='button' onClick={() => handleDeleteTag(tag)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </div>
-          </section>
-        );
-      })}
-    </section>
-  );
-
   const handleDeleteTag = (tag: string) => {
-    console.log({ tag });
+    console.log('delete tag: ', tag);
     // TODO: ajax call to delete tag from post
   };
 
   const postHTML = sanitizeHtml(post?.htmlContent ?? '');
+
   // parent class of ql-editor is required to render styles
   return (
     <section className='d-flex'>
-      <div className='ql-editor'>
+      <div className='ql-editor w-75'>
         <div dangerouslySetInnerHTML={{ __html: postHTML }} />
       </div>
-      {displayTags}
+      <TagList tags={post && post.tags} handleDeleteTag={handleDeleteTag} />
     </section>
   );
 };

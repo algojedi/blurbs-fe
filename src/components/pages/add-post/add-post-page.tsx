@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Delta as TypeDelta } from 'quill';
 import Editor from '../../organisms/editor/editor';
 import { useCreatePost } from '../../../hooks/useCreatePost';
-import { PostRequest } from '../../../types/types';
+import { PostRequest, TagType } from '../../../types/types';
 import './add-post-page.scss';
 import { isValidPost, isValidTag } from './utils';
 import Tag from '../../molecules/tag/tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import TagList from '../../organisms/tag-list/tag-list';
 
 export type SavePostProps = {
   value?: TypeDelta;
@@ -79,7 +80,7 @@ const AddPostPage = () => {
 
   const handleDeleteTag = (tag: string) => {
     setTags((p) => p.filter((t) => t !== tag));
-  }
+  };
 
   const handleCancelPost = () => {
     console.log('Cancel post');
@@ -107,24 +108,9 @@ const AddPostPage = () => {
     <section className='text-danger'>{createPostErrorMessage}</section>
   );
 
-
-  const displayTags = (
-    <section>
-      {tags.map((tag, index) => {
-        return (
-          <section className='d-flex justify-content-between p-1'>
-            <Tag key={index} name={tag} />{' '}
-            <div
-              role='button'
-              onClick={() => handleDeleteTag(tag)}
-            >
-              <FontAwesomeIcon icon={faTrash} />
-            </div>
-          </section>
-        );
-      })}
-    </section>
-  );
+  const tagList : TagType[] = tags.map((t) => {
+    return { name: t };
+  });
 
   return (
     <div className='add-post-page d-flex justify-content-center'>
@@ -152,7 +138,7 @@ const AddPostPage = () => {
         </div>
         <div className='post-options'>
           <div className='d-flex flex-column p-2'>
-            {displayTags}
+            <TagList tags={tagList} handleDeleteTag={handleDeleteTag} />
             {errorMessageComponent}
             <button
               className='btn btn-sm btn-primary m-1'
