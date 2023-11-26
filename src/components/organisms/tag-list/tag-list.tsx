@@ -20,7 +20,7 @@ const TagList: React.FC<TagListProps> = ({
   const { theme } = useContext(ThemeContext);
 
   const displayTags = tags && tags.length ? (
-    <section className='p-3'>
+    <section className='p-3 tags-container'>
       {tags.map((tag, index) => {
         return (
           <section key={index} className='d-flex justify-content-between p-1'>

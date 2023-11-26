@@ -4,8 +4,8 @@ import AddPostPage from "../components/pages/add-post/add-post-page";
 import ErrorPage from "../components/pages/error/error-page";
 import HomePage from "../components/pages/home-page/home-page";
 import MainLayout from "../components/pages/main/main-layout";
-import PostDetailPage from "../components/pages/post/post-detail-page";
-import PostsListPage from "../components/pages/post/posts-list-page";
+import PostDetailPage from "../components/pages/post-detail-page/post-detail-page";
+import PostsListPage from "../components/pages/post-list-page/posts-list-page";
 import ProfilePage from "../components/pages/profile/profile-page";
 
 export const router = createBrowserRouter([

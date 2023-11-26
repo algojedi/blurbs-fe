@@ -4,3 +4,11 @@ a {
   text-decoration: none !important;
   cursor: pointer !important;
 }
+
+.test-border-red {
+  border: 1px dotted red;
+}
+
+.test-border-blue {
+  border: 1px dotted blue;
+}

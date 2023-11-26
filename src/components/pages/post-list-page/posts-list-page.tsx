@@ -4,6 +4,7 @@ import { ThemeContext } from '../../../context/theme-provider';
 import { useGetPosts } from '../../../hooks/useGet';
 import { useDeletePost } from '../../../hooks/useDeletePost';
 import DeleteModal from '../../organisms/delete-modal/delete-modal';
+import './posts-list-page.scss';
 
 const PostsListPage = () => {
   const { isDark } = useContext(ThemeContext);

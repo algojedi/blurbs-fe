@@ -4,6 +4,7 @@ import { sanitizeHtml } from '../../../util/util';
 import { useGetPost } from '../../../hooks/useGet';
 import { useDeletePost } from '../../../hooks/useDeletePost';
 import TagList from '../../organisms/tag-list/tag-list';
+import './post-detail-page.scss';
 
 const PostDetailPage = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -67,12 +68,12 @@ const PostDetailPage = () => {
 
   const postHTML = sanitizeHtml(post?.htmlContent ?? '');
 
-  // parent class of ql-editor is required to render styles
+  // parent class ql-editor is required to render styles
   return (
-    <section className='d-flex'>
-      <div className='ql-editor w-75'>
+    <section className='d-flex mt-3 p-3'>
+      <section className='ql-editor w-75 test-border-red mx-3 editor-sizing'>
         <div dangerouslySetInnerHTML={{ __html: postHTML }} />
-      </div>
+      </section>
       <TagList tags={post && post.tags} handleDeleteTag={handleDeleteTag} />
     </section>
   );
