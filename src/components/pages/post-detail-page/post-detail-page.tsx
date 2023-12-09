@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { sanitizeHtml } from '../../../util/util';
 import { useGetPost } from '../../../hooks/useGet';
 import { useDeletePost } from '../../../hooks/useDeletePost';
+import { useDeleteTag } from '../../../hooks/useDeleteTag';
 import TagList from '../../organisms/tag-list/tag-list';
 import './post-detail-page.scss';
 
@@ -18,6 +19,7 @@ const PostDetailPage = () => {
     isLoading: isLoadingPost,
     isError: isErrorPost,
     error: errorPost,
+    refetch,
   } = useGetPost(postId);
 
   const {
@@ -27,6 +29,14 @@ const PostDetailPage = () => {
     isSuccess,
     error,
   } = useDeletePost();
+
+  const {
+    mutate: deleteTag,
+    isLoading: isLoadingDeleteTag,
+    isError: isErrorDeleteTag,
+    isSuccess: isSuccessDeleteTag,
+    error: errorDeleteTag,
+  } = useDeleteTag();
 
   useEffect(() => {
     if (isErrorPost) {
@@ -61,9 +71,18 @@ const PostDetailPage = () => {
     return <div>Loading post details...</div>;
   }
 
-  const handleDeleteTag = (tag: string) => {
-    console.log('delete tag: ', tag);
-    // TODO: ajax call to delete tag from post
+  const handleDeleteTag = (tagId: number) => {
+    console.log('delete tag: ', tagId);
+    const parsedPostId = parseInt(postId, 10);
+    if (!isNaN(parsedPostId)) {
+      deleteTag({ tagId, postId: parsedPostId });
+      // TODO: refetch is not working
+      refetch();
+      
+    } else {
+      console.error('Invalid postId:', postId);
+      // TODO: display error message
+    }
   };
 
   const postHTML = sanitizeHtml(post?.htmlContent ?? '');

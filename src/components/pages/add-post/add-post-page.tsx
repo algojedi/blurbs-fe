@@ -78,7 +78,7 @@ const AddPostPage = () => {
     setTag('');
   };
 
-  const handleDeleteTag = (tag: string) => {
+  const handleDeleteTagName = (tag: string) => {
     setTags((p) => p.filter((t) => t !== tag));
   };
 
@@ -138,7 +138,7 @@ const AddPostPage = () => {
         </div>
         <div className='post-options'>
           <div className='d-flex flex-column p-2'>
-            <TagList tags={tagList} handleDeleteTag={handleDeleteTag} />
+            <TagList tags={tagList} handleDeleteTagName={handleDeleteTagName} />
             {errorMessageComponent}
             <button
               className='btn btn-sm btn-primary m-1'

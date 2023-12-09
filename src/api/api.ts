@@ -5,6 +5,7 @@ export const GET_POSTS_URL = `${API_URL}/posts`;
 export const POST_POST_URL = `${API_URL}/post`;
 export const DELETE_POST_URL = `${API_URL}/posts`;
 export const POST_TAG_URL = `${API_URL}/tag`;
+export const DELETE_TAG_URL = `${API_URL}/tags`;
 
 // TODO: change deletePost to use api client
 // export const deletePost = async (id: number) =>

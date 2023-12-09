@@ -9,7 +9,8 @@ import Tag from '../../molecules/tag/tag';
 export type TagListProps = {
   classNames?: string;
   tags?: TagType[];
-  handleDeleteTag: (name: string) => void;
+  handleDeleteTagName?: (name: string) => void;
+  handleDeleteTag?: (tagId : number) => void;
 };
 
 const TagList: React.FC<TagListProps> = ({
@@ -25,7 +26,7 @@ const TagList: React.FC<TagListProps> = ({
         return (
           <section key={index} className='d-flex justify-content-between p-1'>
             <Tag name={tag.name} />{' '}
-            <div role='button' onClick={() => handleDeleteTag(tag.name)}>
+            <div role='button' onClick={() => tag.id && handleDeleteTag && handleDeleteTag(tag.id)}>
               <FontAwesomeIcon icon={faTrash} />
             </div>
           </section>

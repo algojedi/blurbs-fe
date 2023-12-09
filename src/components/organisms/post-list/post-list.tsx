@@ -79,7 +79,7 @@ const PostList: React.FC<PostListProps> = ({
           className='post-list-options_edit-btn btn btn-outline-secondary btn-sm'
           onClick={handleEditBtnClick}
         >
-          {isEditMode ? 'Done' : 'Edit'}
+          {isEditMode ? 'Done' : 'Edit List'}
         </button>
         {isEditMode || createPostLink}
       </div>
