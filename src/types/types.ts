@@ -6,7 +6,7 @@ export type Post = {
   creationDate: string;
   averageRating?: number;
   appUser: AppUser;
-  tags?: TagType[];
+  tags: TagType[];
 }
 
 export type PostRequest = {

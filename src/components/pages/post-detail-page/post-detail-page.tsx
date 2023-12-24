@@ -22,12 +22,14 @@ const PostDetailPage = () => {
     refetch,
   } = useGetPost(postId);
 
+  console.log({ post });
+
   const {
     mutate: deletePost,
-    isLoading,
-    isError,
-    isSuccess,
-    error,
+    isLoading: isLoadingDeletePost,
+    isError: isErrorDeletePost,
+    isSuccess: isSuccessDeletePost,
+    error: errorDeletePost,
   } = useDeletePost();
 
   const {
@@ -45,20 +47,19 @@ const PostDetailPage = () => {
   }, [isErrorPost, errorPost]);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccessDeletePost) {
       // TODO: is this condition neccessary?
       console.log('Post deleted successfully');
       navigate('/posts');
     }
-  }, [isSuccess, navigate]);
+  }, [isSuccessDeletePost, navigate]);
 
-  /* DELETE POST
-  const handleDeletePost = (id?: number) => {
-    if (!id) throw new Error('Post id is not defined');
-    deletePost(id);
-    console.log({ isLoading, isSuccess, isError, error });
-  };
-  */
+  useEffect(() => {
+    if (isSuccessDeleteTag) {
+      console.log('Tag deleted successfully .. about to refetch');
+      refetch();
+    }
+  }, [isSuccessDeleteTag, refetch]);
 
   if (isErrorPost) {
     // TODO: render error page
@@ -76,13 +77,10 @@ const PostDetailPage = () => {
     const parsedPostId = parseInt(postId, 10);
     if (!isNaN(parsedPostId)) {
       deleteTag({ tagId, postId: parsedPostId });
-      // TODO: refetch is not working
-      refetch();
-      
-    } else {
-      console.error('Invalid postId:', postId);
-      // TODO: display error message
+      return;
     }
+    console.error('Invalid postId:', postId);
+    // TODO: display error message on screen
   };
 
   const postHTML = sanitizeHtml(post?.htmlContent ?? '');

@@ -3,7 +3,7 @@ import { Post } from '../../types/types';
 import { convertTimestampToDateTime } from '../../util/util';
 import { ThemeContext } from '../../context/theme-provider';
 import './post-list-item.scss';
-import Tag from './tag/tag';
+import TagList from '../organisms/tag-list/tag-list';
 
 export type PostListItemProps = {
   post: Post;
@@ -24,7 +24,7 @@ const PostListItem: React.FC<PostListItemProps> = ({
           {post.appUser.name}
         </div>
       </div>
-      <Tag name='test-tag' />
+      <TagList tags={post.tags} horiztontal={true} />
       <div style={{ color: theme.text.color.secondary }}>
         {convertTimestampToDateTime(post.creationDate)}
       </div>

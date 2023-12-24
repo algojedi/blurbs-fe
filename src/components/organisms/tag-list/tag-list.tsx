@@ -8,36 +8,63 @@ import Tag from '../../molecules/tag/tag';
 
 export type TagListProps = {
   classNames?: string;
-  tags?: TagType[];
+  tags: TagType[];
+  editable?: boolean;
+  horiztontal?: boolean;
   handleDeleteTagName?: (name: string) => void;
-  handleDeleteTag?: (tagId : number) => void;
+  handleDeleteTag?: (tagId: number) => void;
 };
 
 const TagList: React.FC<TagListProps> = ({
   classNames,
   tags,
+  editable,
+  horiztontal,
   handleDeleteTag,
 }) => {
   const { theme } = useContext(ThemeContext);
 
-  const displayTags = tags && tags.length ? (
-    <section className='p-3 tags-container'>
-      {tags.map((tag, index) => {
+  if (!tags.length) {
+    return (
+      <section className='text-danger h6 text-center'>No tags assigned</section>
+    );
+  }
+
+  const displayTagsHorizontal = (
+    <section className='tags-container d-flex'>
+      {tags.map((tag, i) => {
         return (
-          <section key={index} className='d-flex justify-content-between p-1'>
+          <section key={i} className='d-flex justify-content-between p-1'>
             <Tag name={tag.name} />{' '}
-            <div role='button' onClick={() => tag.id && handleDeleteTag && handleDeleteTag(tag.id)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </div>
           </section>
         );
       })}
     </section>
-  ) : (
-    <section className='text-danger h6 text-center'>No tags assigned</section>
   );
 
-  return displayTags;
+  const displayTagsVertical = (
+    <section className='p-3 tags-container'>
+      {tags.map((tag, i) => {
+        return (
+          <section key={i} className='d-flex justify-content-between p-1'>
+            <Tag name={tag.name} />{' '}
+            {editable && tag.id && handleDeleteTag && (
+              <div
+                role='button'
+                onClick={() =>
+                  tag.id && handleDeleteTag && handleDeleteTag(tag.id)
+                }
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </div>
+            )}
+          </section>
+        );
+      })}
+    </section>
+  );
+
+  return horiztontal ? displayTagsHorizontal : displayTagsVertical;
 };
 
 export default TagList;

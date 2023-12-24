@@ -3,7 +3,7 @@ import { Post, PostRequest } from '../types/types';
 import { DELETE_POST_URL, POST_POST_URL, apiClient } from '../api/api';
 import { POSTS_QUERY_KEY } from './useGet';
 
-export const CREATE_POST_QUERY_KEY = 'createPost';
+// export const CREATE_POST_QUERY_KEY = 'createPost';
 
 const queryClient = new QueryClient();
 

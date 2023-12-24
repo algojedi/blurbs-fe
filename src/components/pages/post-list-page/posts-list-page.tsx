@@ -23,6 +23,8 @@ const PostsListPage = () => {
     isSuccess: deletePostIsSuccess,
   } = useDeletePost();
 
+  console.log('posts', posts);
+
   useEffect(() => {
     if (deletePostIsSuccess) {
       console.log('Post deleted successfully');

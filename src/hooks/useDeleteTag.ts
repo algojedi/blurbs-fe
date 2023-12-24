@@ -1,8 +1,9 @@
 
 import { useMutation, QueryClient } from 'react-query';
 import { DELETE_TAG_URL, apiClient } from '../api/api';
+import { POST_QUERY_KEY } from './useGet';
 
-export const DELETE_TAG_QUERY_KEY = 'deleteTag';
+// export const DELETE_TAG_QUERY_KEY = 'deleteTag';
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,8 @@ export const useDeleteTag = () => {
     {
       onSuccess: () => {
         // Invalidate the query cache for 'posts'
-        // queryClient.invalidateQueries(DELETE_POST_QUERY_KEY);
+        // queryClient.invalidateQueries(DELETE_TAG_QUERY_KEY);
+        queryClient.invalidateQueries(POST_QUERY_KEY);
         console.log('success!');
       },
       onError: (error) => {
